@@ -9,7 +9,7 @@ from stoyled import *
 
 
 print(info(f'Started -> {fetchFormatedTime()}'))
-proxy = FreeProxy(rand=True).get(); local_tor_proxy = 'http://127.0.0.1:9050'
+proxy = FreeProxy(rand=True).get(); local_tor_proxy = 'socks5://127.0.0.1:9050'
 # local_tor_proxy = 'socks5://127.0.0.1:9050'; proxy = local_tor_proxy
 print(good(f'Using "{proxy}" -> {fetchFormatedTime()}'))
 client, aclient = HTMLSession(), AsyncHTMLSession()

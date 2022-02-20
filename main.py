@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-from mori import pori, change_proxy, run, tori, change_tor_ip
+from mori import pori, change_proxy, run, tori, change_tor_ip, client, aclient
 
 
 @pori
@@ -31,8 +31,20 @@ def tcheck(c):
     print(resp.json())
 
 
+def ncheck():
+    resp = client.get('https://httpbin.org/ip')
+    print(resp.json())
+
+
+async def nacheck():
+    resp = await client.get('https://httpbin.org/ip')
+    print(resp.json())
+
+
 run(tacheck)
 tcheck()
 run(acheck)
 change_proxy()
 check()
+run(nacheck)
+ncheck()
