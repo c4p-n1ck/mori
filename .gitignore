@@ -6,3 +6,4 @@ dist/
 *.egg-info/
 *_dontAdd_*
 venv/
+*_dontAdd_*

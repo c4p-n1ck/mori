@@ -12,9 +12,9 @@ from .extra import *
 
 
 print(info(f'Started mori v{__version__} -> {fetchFormatedTime()}'))
-proxy = FreeProxy(rand=True).get(); local_tor_proxy = 'socks5://127.0.0.1:9050'
-# local_tor_proxy = 'socks5://127.0.0.1:9050'; proxy = local_tor_proxy
-print(good(f'Using "{proxy}" -> {fetchFormatedTime()}'))
+# proxy = FreeProxy(rand=True).get(); local_tor_proxy = 'socks5://127.0.0.1:9050'
+# print(good(f'Using "{proxy}" -> {fetchFormatedTime()}'))
+local_tor_proxy = 'socks5://127.0.0.1:9050'; proxy = local_tor_proxy
 c, ac = HTMLSession(), AsyncHTMLSession()
 client, aclient = HTMLSession(), AsyncHTMLSession()
 tclient, taclient = HTMLSession(), AsyncHTMLSession()
