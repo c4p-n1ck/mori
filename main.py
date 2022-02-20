@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 
 
-from mori import gori, change_proxy, run, dore
+from mori import pori, change_proxy, run, tori, change_tor_ip
 
 
-@gori
+@pori
 def check(c):
     resp = c.get('https://httpbin.org/ip')
     print(resp.json())
 
-
-@gori
+@pori
 async def acheck(c):
     resp = await c.get('https://httpbin.org/ip')
     print(resp.json())
@@ -18,6 +17,22 @@ async def acheck(c):
     print(resp.json())
 
 
+@tori
+async def tacheck(c):
+    resp = await c.get('https://httpbin.org/ip')
+    print(resp.json())
+    change_tor_ip()
+    resp = await c.get('https://httpbin.org/ip')
+    print(resp.json())
+
+@tori
+def tcheck(c):
+    resp = c.get('https://httpbin.org/ip')
+    print(resp.json())
+
+
+run(tacheck)
+tcheck()
 run(acheck)
 change_proxy()
 check()

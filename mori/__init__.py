@@ -1,1 +1,1 @@
-from .gori import *
+from .mori import *

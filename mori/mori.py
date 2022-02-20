@@ -10,6 +10,7 @@ from stoyled import *
 
 print(info(f'Started -> {fetchFormatedTime()}'))
 proxy = FreeProxy(rand=True).get(); local_tor_proxy = 'http://127.0.0.1:9050'
+# local_tor_proxy = 'socks5://127.0.0.1:9050'; proxy = local_tor_proxy
 print(good(f'Using "{proxy}" -> {fetchFormatedTime()}'))
 client, aclient = HTMLSession(), AsyncHTMLSession()
 tclient, taclient = HTMLSession(), AsyncHTMLSession()
@@ -22,7 +23,7 @@ client.proxies = {
 }; tor_proxies = {
     'http': local_tor_proxy,
     'https': local_tor_proxy
-}; tclient = tor_proxies; taclient = tor_proxies
+}; tclient.proxies = tor_proxies; taclient.proxies = tor_proxies
 
 
 def run(*args, **kwargs):
@@ -58,7 +59,7 @@ def change_tor_ip():
         kill(pid, SIGHUP)
 
 
-def gori(func):
+def pori(func):
 
     global client, aclient
 
