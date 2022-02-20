@@ -153,7 +153,7 @@ def tori(func):
 
 def check_proxy(proxies, url='https://google.com'):
     """
-    Check if a proxy is working, basically tries a GET request to the URL with the proxy
+    Check if a proxy is working, basically tries a HEAD request to the URL with the proxy
         Parameters:
             proxies (dict): Dictionary consisting of proxies
             url (str): URL to to check with proxy
