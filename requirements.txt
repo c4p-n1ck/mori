@@ -1,3 +1,4 @@
 stoyled
 requests_html
 free-proxy
+psutil

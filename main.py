@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-from gori import gori, change_proxy, run
+from mori import gori, change_proxy, run, dore
 
 
 @gori

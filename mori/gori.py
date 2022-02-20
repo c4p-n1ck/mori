@@ -2,20 +2,27 @@ from requests_html import HTMLSession, AsyncHTMLSession
 from inspect import iscoroutinefunction
 from fp.fp import FreeProxy
 from time import time
+from psutil import process_iter
+from os import kill
+from signal import SIGHUP
 from stoyled import *
 
 
 print(info(f'Started -> {fetchFormatedTime()}'))
-proxy = FreeProxy(rand=True).get()
+proxy = FreeProxy(rand=True).get(); local_tor_proxy = 'http://127.0.0.1:9050'
 print(good(f'Using "{proxy}" -> {fetchFormatedTime()}'))
 client, aclient = HTMLSession(), AsyncHTMLSession()
+tclient, taclient = HTMLSession(), AsyncHTMLSession()
 client.proxies = {
     'http': proxy,
     'https': proxy
 }; aclient.proxies = {
     'http': proxy,
     'https': proxy
-};
+}; tor_proxies = {
+    'http': local_tor_proxy,
+    'https': local_tor_proxy
+}; tclient = tor_proxies; taclient = tor_proxies
 
 
 def run(*args, **kwargs):
@@ -40,6 +47,15 @@ def change_proxy():
     'https': proxy
     }; print(good(f'Using "{proxy}" -> {fetchFormatedTime()}'))
     return proxy
+
+
+def change_tor_ip():
+    pid = 0
+    for pinfo in process_iter():
+        if pinfo.name() == 'tor':
+            pid = pinfo.pid
+    if pid:
+        kill(pid, SIGHUP)
 
 
 def gori(func):
@@ -68,6 +84,46 @@ def gori(func):
 
                 time_before_exec = time()
                 returned = func(c=client, *args, **kwargs)
+                time_after_exec = time()
+
+                exec_time = time_after_exec - time_before_exec
+
+                print(info(f"{func.__name__} took -> {exec_time:.2f}µ"))
+                return returned
+
+    except Exception as e:
+        print(bad(f'Error -> {e}'))
+
+
+    return task
+
+
+def tori(func):
+
+    global tclient, taclient
+
+    try:
+
+        if iscoroutinefunction(func):
+
+            async def task(*args, **kwargs):
+                global aclient
+
+                time_before_exec = time()
+                returned = await func(c=taclient, *args, **kwargs)
+                time_after_exec = time()
+
+                exec_time = time_after_exec - time_before_exec
+
+                print(info(f"{func.__name__} took -> {exec_time:.2f}µ"))
+                return returned
+        else:
+
+            def task(*args, **kwargs):
+                global client
+
+                time_before_exec = time()
+                returned = func(c=tclient, *args, **kwargs)
                 time_after_exec = time()
 
                 exec_time = time_after_exec - time_before_exec
