@@ -52,7 +52,7 @@ def change_proxy():
     else:
         return change_proxy()
     if not check_proxy({'http': new_proxy, 'https': new_proxy}):
-        return check_proxy()
+        return change_proxy()
     return proxy
 
 
