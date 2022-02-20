@@ -38,7 +38,7 @@ def ncheck():
 
 
 async def nacheck():
-    resp = await ca.get('https://httpbin.org/ip')
+    resp = await ac.get('https://httpbin.org/ip')
     print(resp.json())
 
 
