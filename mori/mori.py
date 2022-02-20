@@ -12,6 +12,7 @@ print(info(f'Started -> {fetchFormatedTime()}'))
 proxy = FreeProxy(rand=True).get(); local_tor_proxy = 'socks5://127.0.0.1:9050'
 # local_tor_proxy = 'socks5://127.0.0.1:9050'; proxy = local_tor_proxy
 print(good(f'Using "{proxy}" -> {fetchFormatedTime()}'))
+c, ac = HTMLSession(), AsyncHTMLSession()
 client, aclient = HTMLSession(), AsyncHTMLSession()
 tclient, taclient = HTMLSession(), AsyncHTMLSession()
 client.proxies = {
@@ -57,6 +58,7 @@ def change_tor_ip():
             pid = pinfo.pid
     if pid:
         kill(pid, SIGHUP)
+        print(good(f'Changed TOR IP on -> {fetchFormatedTime()}'))
 
 
 def pori(func):
@@ -95,6 +97,9 @@ def pori(func):
     except Exception as e:
         print(bad(f'Error -> {e}'))
 
+
+    except KeyboardInterrupt as e:
+        print(info('Caught -> [SIGINT]'))
 
     return task
 
@@ -135,5 +140,7 @@ def tori(func):
     except Exception as e:
         print(bad(f'Error -> {e}'))
 
+    except KeyboardInterrupt as e:
+        print(info('Caught -> [SIGINT]'))
 
     return task

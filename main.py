@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-from mori import pori, change_proxy, run, tori, change_tor_ip, client, aclient
+from mori import pori, change_proxy, run, tori, change_tor_ip, c, ac
 
 
 @pori
@@ -22,6 +22,7 @@ async def tacheck(c):
     resp = await c.get('https://httpbin.org/ip')
     print(resp.json())
     change_tor_ip()
+    sleep()
     resp = await c.get('https://httpbin.org/ip')
     print(resp.json())
 
@@ -32,16 +33,17 @@ def tcheck(c):
 
 
 def ncheck():
-    resp = client.get('https://httpbin.org/ip')
+    resp = c.get('https://httpbin.org/ip')
     print(resp.json())
 
 
 async def nacheck():
-    resp = await aclient.get('https://httpbin.org/ip')
+    resp = await ca.get('https://httpbin.org/ip')
     print(resp.json())
 
 
 run(tacheck)
+change_tor_ip()
 tcheck()
 run(acheck)
 change_proxy()
