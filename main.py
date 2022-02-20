@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 
 
-from time import sleep
-from mori import pori, change_proxy, run, tori, change_tor_ip, c, ac
+from mori import (
+    pori,
+    change_proxy,
+    run,
+    tori,
+    change_tor_ip,
+    c,
+    ac
+); from time import sleep
 
 
 @pori

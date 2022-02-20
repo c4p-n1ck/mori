@@ -155,3 +155,20 @@ def bytify(object):
         object = str(object).encode()
 
     return object
+
+
+def chunkify(iterable, chunk_length=4):
+    """
+    Yield chunk_length-sized chunks from an iterable
+
+        Parameters:
+            iterable: An iterable
+            chunk_length: Chunk size for the iterable to be splitted
+
+        Retuns:
+            iterable: Chunked iterable
+
+    Copied from: https://stackoverflow.com/a/312464/190597
+    """
+    for _ in range(0, len(iterable), chunk_length):
+        yield iterable[_:_ + chunk_length]
