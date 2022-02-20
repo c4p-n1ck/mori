@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 
+from time import sleep
 from mori import pori, change_proxy, run, tori, change_tor_ip, c, ac
 
 
@@ -22,7 +23,7 @@ async def tacheck(c):
     resp = await c.get('https://httpbin.org/ip')
     print(resp.json())
     change_tor_ip()
-    sleep()
+    sleep(.84)
     resp = await c.get('https://httpbin.org/ip')
     print(resp.json())
 
